@@ -1,5 +1,4 @@
 import React from 'react'
-import '@/styles/Pages/home.scss'
 import { Banner } from '@/components/Banner'
 import { Features } from '@/components/Features'
 /**

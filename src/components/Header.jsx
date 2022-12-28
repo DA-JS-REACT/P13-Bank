@@ -1,9 +1,8 @@
 import React from 'react'
 import Logo from '@/assets/img/argentBankLogo.png'
-import '@/styles/Layout/Header.scss'
+
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { Icon } from '@/components/Icon'
 /**
  * Header to the app with navigation
  * @component
@@ -22,8 +21,8 @@ export const Header = () => {
             </Link>
 
             <div>
-                <Link to="/sign-in" className="main-nav-item">
-                    <FontAwesomeIcon icon={faCircleUser} />
+                <Link to="/sign-in" className="main-nav-item ">
+                    <Icon />
                     Sign In
                 </Link>
             </div>

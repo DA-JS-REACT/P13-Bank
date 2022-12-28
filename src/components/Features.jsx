@@ -1,6 +1,5 @@
 import React from 'react'
-import '@/styles/Layout/Features.scss'
-import { featuresData } from '@/data/dataHome'
+import { featuresData } from '@/data/datas'
 import { Card } from '@/components/Card'
 /**
  *

@@ -1,5 +1,3 @@
-import '@/styles/Layout/App.scss'
-
 import { Navigation } from '@/pages/Navigation'
 import { BrowserRouter } from 'react-router-dom'
 /**

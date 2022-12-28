@@ -1,5 +1,5 @@
 import React from 'react'
-import '@/styles/Layout/Banner.scss'
+
 /**
  * Banner with explication to the app
  * @component

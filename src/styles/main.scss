@@ -1,2 +1,20 @@
 @import './Utils/variables';
+@import './Utils/mixins';
 @import './Base/base';
+
+@import './Components/button';
+
+// Pages
+@import './Pages/layout';
+@import './Pages/home';
+@import './Pages/sign-in';
+
+// React components
+@import './Layout/banner';
+@import './Layout/card';
+@import './Layout/accountHeader';
+@import './Layout/cardAccount';
+@import './Layout/features';
+@import './Layout/footer';
+@import './Layout/header';
+@import './Layout/formLogin';

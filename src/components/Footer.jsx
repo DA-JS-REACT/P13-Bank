@@ -1,5 +1,5 @@
 import React from 'react'
-import '@/styles/Layout/Footer.scss'
+
 /**
  * footer to the app
  * @component
