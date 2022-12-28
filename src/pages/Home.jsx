@@ -1,13 +1,13 @@
 import React from 'react'
-import Banner from '@/components/Banner'
 import '@/styles/Pages/home.scss'
-import Features from '@/components/Features'
+import { Banner } from '@/components/Banner'
+import { Features } from '@/components/Features'
 /**
  * Home Page
  * @component
  * @returns  {React.ReactElement}
  */
-const Home = () => {
+export const Home = () => {
     return (
         <div className="home">
             <Banner />
@@ -16,5 +16,3 @@ const Home = () => {
         </div>
     )
 }
-
-export default Home

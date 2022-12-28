@@ -1,15 +1,15 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Layout from '@/pages/Layout'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import User from './User'
+import { Layout } from '@/pages/Layout'
+import { Home } from '@/pages/Home'
+import { Login } from '@/pages/Login'
+import { User } from '@/pages/User'
 /**
  *  router to the app
  * @component
  * @returns  {React.ReactElement}
  */
-const Routage = () => {
+export const Navigation = () => {
     return (
         <Routes>
             <Route element={<Layout />}>
@@ -21,5 +21,3 @@ const Routage = () => {
         </Routes>
     )
 }
-
-export default Routage

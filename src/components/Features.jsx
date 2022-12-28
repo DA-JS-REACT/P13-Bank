@@ -1,13 +1,13 @@
 import React from 'react'
 import '@/styles/Layout/Features.scss'
 import { featuresData } from '@/data/dataHome'
-import Card from '@/components/Card'
+import { Card } from '@/components/Card'
 /**
  *
  * @component
  * @returns  {React.ReactElement}
  */
-const Features = () => {
+export const Features = () => {
     return (
         <section className="features">
             <h2 className="sr-only">Features</h2>
@@ -24,5 +24,3 @@ const Features = () => {
         </section>
     )
 }
-
-export default Features

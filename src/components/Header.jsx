@@ -9,7 +9,7 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
  * @component
  * @returns  {React.ReactElement}
  */
-const Header = () => {
+export const Header = () => {
     return (
         <nav className="main-nav">
             <Link className="main-nav-logo" to="/">
@@ -30,5 +30,3 @@ const Header = () => {
         </nav>
     )
 }
-
-export default Header

@@ -1,20 +1,18 @@
 import '@/styles/Layout/App.scss'
 
-import Routage from '@/pages/Routage'
+import { Navigation } from '@/pages/Navigation'
 import { BrowserRouter } from 'react-router-dom'
 /**
  * main router  to the app
  * @component
  * @returns  {React.ReactElement}
  */
-function App() {
+export function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Routage />
+                <Navigation />
             </BrowserRouter>
         </div>
     )
 }
-
-export default App

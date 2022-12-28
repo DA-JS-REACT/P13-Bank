@@ -5,7 +5,7 @@ import '@/styles/Pages/sign-in.scss'
  * @component
  * @returns  {React.ReactElement}
  */
-const Login = () => {
+export const Login = () => {
     return (
         <main className="main bg-dark">
             <section className="sign-in-content">
@@ -36,5 +36,3 @@ const Login = () => {
         </main>
     )
 }
-
-export default Login
