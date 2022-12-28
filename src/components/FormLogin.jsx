@@ -2,15 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const FormLogin = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('form')
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
                 <label htmlFor="username">Username</label>
-                <input type="text" id="username" />
+                <input type="text" id="username" name="username" />
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" />
+                <input type="password" id="password" name="pasword" />
             </div>
             <div className="input-remember">
                 <input type="checkbox" id="remember-me" />
@@ -23,8 +27,7 @@ export const FormLogin = () => {
             </Link>
 
             {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-            {/* <!-- <button class="sign-in-button">Sign In</button> -->
-<!--  --> */}
+            <button className="sign-in-button">Sign In</button>
         </form>
     )
 }

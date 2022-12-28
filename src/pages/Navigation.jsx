@@ -4,6 +4,7 @@ import { Layout } from '@/pages/Layout'
 import { Home } from '@/pages/Home'
 import { Login } from '@/pages/Login'
 import { User } from '@/pages/User'
+import { AuthGuard } from '@/_helpers/AuthGuard'
 /**
  *  router to the app
  * @component
@@ -16,7 +17,14 @@ export const Navigation = () => {
                 <Route index element={<Home />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/sign-in" element={<Login />} />
-                <Route path="/user" element={<User />} />
+                <Route
+                    path="/user"
+                    element={
+                        <AuthGuard>
+                            <User />
+                        </AuthGuard>
+                    }
+                />
             </Route>
         </Routes>
     )
