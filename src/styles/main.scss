@@ -3,6 +3,7 @@
 @import './Base/base';
 
 @import './Components/button';
+@import './Components/loader';
 
 // Pages
 @import './Pages/layout';
@@ -18,3 +19,4 @@
 @import './Layout/footer';
 @import './Layout/header';
 @import './Layout/formLogin';
+@import './Layout/formEdit';
