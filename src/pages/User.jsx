@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { AccountHeader } from '@/components/AccountHeader'
 import { Account } from '@/components/Account'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,15 +10,22 @@ import { Error } from '@/pages/Error'
 export const User = () => {
     const dispatch = useDispatch()
 
-    const flag = useRef(false)
+    // const flag = useRef(false)
 
-    useEffect(() => {
-        if (flag.current === false) {
-            dispatch(getUser())
-        }
-        return () => flag.current === true
-    }, [dispatch])
+    // useEffect(() => {
+    //     if (flag.current === false) {
+    //         dispatch(getUser())
+    //     }
+    //     return () => flag.current === true
+    // }, [])
     const user = useSelector(selectUser)
+    useEffect(() => {
+        let timeoutId = setTimeout(() => {
+            dispatch(getUser())
+            console.log(getUser())
+        }, 10)
+        return () => clearTimeout(timeoutId)
+    }, [])
 
     return (
         <main className="main bg-dark">

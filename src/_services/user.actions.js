@@ -7,20 +7,16 @@ export const getUser = createAsyncThunk('getUser', async () => {
 
         return data
     } catch (error) {
-        // return custom error message from API if any
-        // if (error.response && error.response.data.message) {
-        //     return rejectWithValue(error.response.data.message)
-        // } else {
-        //     return rejectWithValue(error.message)
-        // }
+        console.log(error)
+        throw new Error(error.message)
     }
 })
 
 export const editUserName = createAsyncThunk(
     'editUser',
-    async (edit, { rejectWithValue }) => {
+    async (payload, { rejectWithValue }) => {
         try {
-            const { data } = await Axios.put('/profile', edit)
+            const { data } = await Axios.put('/profile', payload)
 
             return data
         } catch (error) {

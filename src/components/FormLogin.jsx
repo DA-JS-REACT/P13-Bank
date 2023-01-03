@@ -20,7 +20,7 @@ export const FormLogin = () => {
 
     useEffect(() => {
         if (isLogged.logged) {
-            navigate('/user')
+            navigate('/user', { replace: true })
         }
     }, [isLogged])
 
@@ -33,19 +33,6 @@ export const FormLogin = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(userLogin(credentials))
-
-        // accountService
-        //     .login(credentials)
-        //     .then((res) => {
-        //         console.log(res.data.body.token)
-        //         const token = res.data.body.token
-        //         // Sauvegarde du token et envoi vers admin
-        //         accountService.saveToken(token)
-        //         dispatch(setLogged(token))
-
-        //         navigate('/user')
-        //     })
-        //     .catch((err) => console.log(err))
     }
     return (
         <form onSubmit={handleSubmit}>

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Axios } from './caller.services'
 /**
- *
- * @returns {Promise}
+ *@function
+ * @returns {Promise<Void>}
  */
 export const userLogin = createAsyncThunk(
     '/login',
