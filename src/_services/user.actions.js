@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Axios } from './caller.services'
-
+/**
+ * Call async Api  for user profile with Post
+ * @function
+ * @returns {Promise.<Void>}
+ */
 export const getUser = createAsyncThunk('getUser', async () => {
     try {
         const { data } = await Axios.post('/profile')
@@ -11,7 +15,11 @@ export const getUser = createAsyncThunk('getUser', async () => {
         throw new Error(error.message)
     }
 })
-
+/**
+ * Call async Api for Edit  with Put
+ * @function
+ * @returns {Promise.<Void>}
+ */
 export const editUserName = createAsyncThunk(
     'editUser',
     async (payload, { rejectWithValue }) => {

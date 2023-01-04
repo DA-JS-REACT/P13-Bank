@@ -1,35 +1,41 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
-import { editUserName, getUser } from '../_services/user.actions'
+// import { editUserName, getUser } from '@/_services/user.actions'
 /**
  * @component
- * @prop {string} firstName
- * @prop {string} lastName
- * @prop {function} setToggleEdit
+ * @prop {object.<{firstName: string, lastName: string}>} edit
+ * @prop {function} setIsToggleEdit
+ * @prop {function} handleSubmit
+ * @prop {function} handleChange
  * @returns {React.ReactElement}
  */
-export function FormEditName({ firstName, lastName, setToggleEdit }) {
-    const [edit, setEdit] = useState({
-        firstName: firstName,
-        lastName: lastName,
-    })
-    const dispatch = useDispatch()
+export function FormEditName({
+    edit,
+    setIsToggleEdit,
+    handleSubmit,
+    handleChange,
+}) {
+    // const [edit, setEdit] = useState({
+    //     firstName: firstName,
+    //     lastName: lastName,
+    // })
+    // const dispatch = useDispatch()
 
-    const handleChange = (e) => {
-        setEdit({
-            ...edit,
-            [e.target.name]: e.target.value,
-        })
-    }
-    const handleSubmit = (e) => {
-        console.log(edit)
-        e.preventDefault()
-        dispatch(editUserName(edit))
-        setToggleEdit(false)
-        dispatch(getUser())
-    }
+    // const handleChange = (e) => {
+    //     setEdit({
+    //         ...edit,
+    //         [e.target.name]: e.target.value,
+    //     })
+    // }
+    // const handleSubmit = (e) => {
+    //     console.log(edit)
+    //     e.preventDefault()
+    //     dispatch(editUserName(edit))
+    //     setToggleEdit(false)
+    //     dispatch(getUser())
+    // }
     return (
         <form onSubmit={handleSubmit} className="form-edit">
             <div className="input-group">
@@ -56,7 +62,7 @@ export function FormEditName({ firstName, lastName, setToggleEdit }) {
                 />
                 <button
                     className="button-group__field"
-                    onClick={() => setToggleEdit(false)}
+                    onClick={() => setIsToggleEdit(false)}
                 >
                     Cancel
                 </button>
@@ -66,7 +72,11 @@ export function FormEditName({ firstName, lastName, setToggleEdit }) {
 }
 
 FormEditName.propTypes = {
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    setToggleEdit: PropTypes.func.isRequired,
+    setIsToggleEdit: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    edit: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+    }).isRequired,
 }

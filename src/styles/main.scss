@@ -9,6 +9,7 @@
 @import './Pages/layout';
 @import './Pages/home';
 @import './Pages/sign-in';
+@import './Pages/error404';
 
 // React components
 @import './Layout/banner';
@@ -20,3 +21,4 @@
 @import './Layout/header';
 @import './Layout/formLogin';
 @import './Layout/formEdit';
+@import './Layout/error';

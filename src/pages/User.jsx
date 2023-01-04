@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '@/_services/user.actions'
 import { selectUser } from '@/_helpers/selectors'
 import { Loader } from '@/components/Loader'
-import { Error } from '@/pages/Error'
+import { Error } from '@/components/Error'
 
 export const User = () => {
     const dispatch = useDispatch()
@@ -22,7 +22,6 @@ export const User = () => {
     useEffect(() => {
         let timeoutId = setTimeout(() => {
             dispatch(getUser())
-            console.log(getUser())
         }, 10)
         return () => clearTimeout(timeoutId)
     }, [])

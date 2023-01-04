@@ -5,6 +5,7 @@ import { Home } from '@/pages/Home'
 import { Login } from '@/pages/Login'
 import { User } from '@/pages/User'
 import { AuthGuard } from '@/_helpers/AuthGuard'
+import { Error404 } from '@/pages/Error404'
 /**
  *  router to the app
  * @component
@@ -25,6 +26,7 @@ export const Navigation = () => {
                         </AuthGuard>
                     }
                 />
+                <Route path="/*" element={<Error404 />} />
             </Route>
         </Routes>
     )

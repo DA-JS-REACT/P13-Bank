@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Axios } from './caller.services'
 /**
- *@function
- * @returns {Promise<Void>}
+ * call async Api for Login user with Post
+ * @function
+ * @returns {Promise.<Void>}
  */
 export const userLogin = createAsyncThunk(
     '/login',
@@ -15,6 +16,7 @@ export const userLogin = createAsyncThunk(
 
             return data
         } catch (error) {
+            console.log(error.message)
             // return custom error message from API if any
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)

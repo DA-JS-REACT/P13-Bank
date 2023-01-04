@@ -40,7 +40,6 @@ export const userSlice = createSlice({
                 state.error = null
             })
             .addCase(editUserName.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.loading = false
                 state.error = null
                 state.userInfo = {
