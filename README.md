@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Remede Agency - ARGENT BANK
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## General information
 
-In the project directory, you can run:
+Project 13 , application with an authentication page for a bank
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   <img src="https://img.shields.io/badge/Node-v16.12.0-blue">
+-   <img src="https://img.shields.io/badge/React-v18.2.0-green">
+-   <img src="https://img.shields.io/badge/npm-8.1.0-blue"> or <img src="https://img.shields.io/badge/Yarn-v1.14.0-green">
+-   [Github](https://github.com/)
+-   code editing like [VSC](https://code.visualstudio.com/) for example ...
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Starter Project
 
-### `npm test`
+1. Clone this repository with the following ssh command: `git  clone git@github.com:Name-Organizations/Name-Repository.git`
+2. Install the dependencies with npm `npm install` or with yarn `yarn install`
+3. then launch the back-end by following the procedure [here](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API)
+4. command will allow you to run after launching Back-End , `npm run tostart` or `yarn run tostart`. this application works with the [@craco/craco](https://www.npmjs.com/package/@craco/craco) dependency, which is why the command `to run ` is different.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## added dependencies for this project
 
-### `npm run build`
+For your information
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   <img src="https://img.shields.io/badge/react--router--dom-6.6.1-blue">
+-   <img src="https://img.shields.io/badge/axios-1.2.1-green">
+-   <img src="https://img.shields.io/badge/@redux--toolkit-1.9.1-blue">
+-   <img src="https://img.shields.io/badge/redux-4.2.0-green">
+-   <img src="https://img.shields.io/badge/sass-1.57.1-blue">
+-   <img src="https://img.shields.io/badge/@craco/craco-7.0.0-green">
+-   <img src="https://img.shields.io/badge/eslint-8.30.0-blue">
+-   <img src="https://img.shields.io/badge/prettier-2.8.1-green">
+-   <img src="https://img.shields.io/badge/eslint--plugin--prettier-4.2.1-blue">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Author
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src="https://img.shields.io/badge/fred-v1-blue">

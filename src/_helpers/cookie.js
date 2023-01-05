@@ -22,5 +22,4 @@ export function createCookie(email, password) {
     date = date.toUTCString()
     document.cookie = ` email=${email};path=http://localhost:3000;secure;expires=${date}`
     document.cookie = ` password=${password};path=http://localhost:3000;secure;expires=${date}`
-    console.log('cookie')
 }
