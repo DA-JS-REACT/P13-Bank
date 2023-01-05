@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 /**
- *
+ * Display a eror message
  * @param {string} message - error message which depends on the status of the request
  * @returns
  */

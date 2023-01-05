@@ -2,7 +2,7 @@ import React from 'react'
 import { featuresData } from '@/data/datas'
 import { Card } from '@/components/Card'
 /**
- *
+ * list of user's transactions
  * @component
  * @returns  {React.ReactElement}
  */

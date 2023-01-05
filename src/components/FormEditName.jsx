@@ -1,8 +1,5 @@
-// import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-// import { useDispatch } from 'react-redux'
 
-// import { editUserName, getUser } from '@/_services/user.actions'
 /**
  * @component
  * @prop {object.<{firstName: string, lastName: string}>} edit
@@ -17,25 +14,6 @@ export function FormEditName({
     handleSubmit,
     handleChange,
 }) {
-    // const [edit, setEdit] = useState({
-    //     firstName: firstName,
-    //     lastName: lastName,
-    // })
-    // const dispatch = useDispatch()
-
-    // const handleChange = (e) => {
-    //     setEdit({
-    //         ...edit,
-    //         [e.target.name]: e.target.value,
-    //     })
-    // }
-    // const handleSubmit = (e) => {
-    //     console.log(edit)
-    //     e.preventDefault()
-    //     dispatch(editUserName(edit))
-    //     setToggleEdit(false)
-    //     dispatch(getUser())
-    // }
     return (
         <form onSubmit={handleSubmit} className="form-edit">
             <div className="input-group">

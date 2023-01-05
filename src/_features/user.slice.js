@@ -10,15 +10,7 @@ const initialState = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-        // editUser: (state, action) => {
-        //     state.userInfo = {
-        //         ...state.userInfo,
-        //         firstName: action.payload.firstName,
-        //         lasttName: action.payload.lastName,
-        //     }
-        // },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getUser.pending, (state) => {

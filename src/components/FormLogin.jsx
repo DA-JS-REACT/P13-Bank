@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogged } from '@/_helpers/selectors'
 import { userLogin } from '@/_services/login.actions'
-import { CheckCredentials } from '../_services/validation'
-import { Error } from './Error'
+import { CheckCredentials } from '@/_services/validation'
+import { Error } from '@/components/Error'
+import { Checkbox } from '@/components//Checkbox'
+import { getCookie, createCookie } from '@/_helpers/cookie'
 
 /**
  * form to user Login
@@ -14,15 +16,22 @@ export const FormLogin = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isLogged = useSelector(selectLogged)
-    console.log(isLogged)
+
+    // const testEmail = 'tony@stark.com'
+    // const testpassword = 'password123'
+
+    // for credentials recovering in the input field
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: '',
+    })
+    // for error message if no validate
     const [validationError, setValidationError] = useState({
         errorEmail: '',
         errorPassword: '',
     })
-    const [credentials, setCredentials] = useState({
-        email: 'tony@stark.com',
-        password: 'password123',
-    })
+    // for checkBox
+    const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
         if (isLogged.logged) {
@@ -31,25 +40,62 @@ export const FormLogin = () => {
     }, [isLogged])
 
     const handleChange = (e) => {
+        // stock credentials
         setCredentials({
             ...credentials,
             [e.target.name]: e.target.value,
         })
+        // change the state to true or false
+        if (e.target.name === 'checkbox') {
+            setIsChecked(!isChecked)
+        }
+        // recover the error message
+        const { error } = CheckCredentials(credentials)
+        setValidationError(error)
     }
+    // // create a cookie
+    // if (isChecked) {
+    //     document.cookie = ` email=${credentials.email};path=http://localhost:3000;secure`
+    // }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        const { isValid, error } = CheckCredentials(credentials)
-        setValidationError(error)
-        console.log({ isvalid: isValid, error: error })
+        const { isValid } = CheckCredentials(credentials)
+
+        console.log({ isvalid: isValid })
         if (isValid) {
             dispatch(userLogin(credentials))
+            // create a cookie && isLogged.error != null
+            if (isChecked && isLogged.error === null) {
+                createCookie(credentials.email, credentials.password)
+                //     document.cookie = ` email=${credentials.email};path=http://localhost:3000;secure`
+                //     document.cookie = ` password=${credentials.password};path=http://localhost:3000;secure`
+            }
         }
     }
+
+    // injects value of cookie in input element
+    useEffect(() => {
+        const inputEmail = document.querySelector('input[name="email"]')
+        const inputPassword = document.querySelector('input[name="password"]')
+
+        if (getCookie('email') != null) {
+            inputEmail.value = getCookie('email')
+            inputPassword.value = getCookie('password')
+            // update state credentials
+            setCredentials({
+                ...credentials,
+                email: getCookie('email'),
+                password: getCookie('password'),
+            })
+        }
+    }, [])
+    console.log(isChecked)
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="email">E-mail</label>
                 <input
                     type="email"
                     name="email"
@@ -74,10 +120,8 @@ export const FormLogin = () => {
                     <span className="error">{validationError.password}</span>
                 )}
             </div>
-            <div className="input-remember">
-                <input type="checkbox" id="remember-me" />
-                <label htmlFor="remember-me">Remember me</label>
-            </div>
+
+            <Checkbox checked={isChecked} onChange={handleChange} />
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
 
             {/* <Link className="sign-in-button" to="/user">

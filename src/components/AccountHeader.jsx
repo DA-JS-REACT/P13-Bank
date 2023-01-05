@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { FormEditName } from './FormEditName'
+import { FormEditName } from '@/components/FormEditName'
 import { useDispatch } from 'react-redux'
 import { editUserName, getUser } from '@/_services/user.actions'
 /**
