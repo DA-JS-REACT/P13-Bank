@@ -129,7 +129,7 @@ export const FormLogin = () => {
             </Link> */}
 
             {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-            <button className="sign-in-button">Sign In</button>
+            <button className="sign-in-button">Connect</button>
             {isLogged.error != null && (
                 <Error message={isLogged.error.payload} />
             )}

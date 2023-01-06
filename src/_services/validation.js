@@ -3,8 +3,10 @@
  * @constant
  */
 const ErrorMessage = {
-    email: " Le format de l'email n'est pas correcte",
+    email: " Le format de l'email n'est pas valide",
     password: 'le mot de passe doit contenir au moins 2 caratères',
+    lastName: 'doit être compris entre 2 et 65 caractères',
+    firstName: 'doit être compris entre 2 et 65 caractères',
 }
 /**
  *  check password and  email
@@ -35,6 +37,45 @@ export const CheckCredentials = (credentials) => {
 
     return { isValid, error }
 }
+/**
+ *
+ * @param {object} data
+ */
+export const validateRegister = ({ data }) => {
+    console.log(data)
+    let isValid = false
+    let error = { email: '', password: '', firstName: '', lastName: '' }
+
+    const isValidEmail = checkEmail(data.email)
+    const isValidPassword = checkPassword(data.password)
+    const isValidFirstname = checkFieldText(data.firstName)
+    const isValidLastname = checkFieldText(data.lastName)
+
+    if (
+        isValidFirstname &&
+        isValidLastname &&
+        isValidEmail &&
+        isValidPassword
+    ) {
+        isValid = true
+    } else if (
+        !isValidFirstname &&
+        isValidLastname &&
+        isValidEmail &&
+        isValidPassword
+    ) {
+        error.firstName = ErrorMessage.firstName
+    } else if (
+        isValidFirstname &&
+        !isValidLastname &&
+        isValidEmail &&
+        isValidPassword
+    ) {
+        error.lastName = ErrorMessage.lastName
+    }
+
+    return { isValid, error }
+}
 
 /**
  * check with regex email
@@ -56,4 +97,9 @@ const checkPassword = (password) => {
     const isValidPassword = password.trim().length >= 1
 
     return isValidPassword
+}
+
+const checkFieldText = (field) => {
+    const isValidField = field.trim().length >= 2 && field.trim().length <= 65
+    return isValidField
 }

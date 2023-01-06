@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon } from '@/components/Icon'
 
 import { FormLogin } from '@/components/FormLogin'
+import { Link } from 'react-router-dom'
 /**
  * Page sign-in
  * @component
@@ -10,10 +11,14 @@ import { FormLogin } from '@/components/FormLogin'
 export const Login = () => {
     return (
         <main className="main bg-dark">
-            <section className="sign-in-content">
+            <section className="login-content">
                 <Icon />
-                <h1>Sign In</h1>
+                <h1>Login</h1>
                 <FormLogin />
+                <h3>Pas encore de compte ?</h3>
+                <Link className="sign-in-button sign-in-link" to="/Sign-in">
+                    Sign In
+                </Link>
             </section>
         </main>
     )

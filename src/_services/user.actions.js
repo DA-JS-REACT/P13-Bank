@@ -15,8 +15,32 @@ export const getUser = createAsyncThunk('getUser', async () => {
         throw new Error(error.message)
     }
 })
+
 /**
- * Call async Api for Edit  with Put
+ * call async Api for Register user with Post
+ * @function
+ * @returns {Promise.<Void>}
+ */
+export const userRegister = createAsyncThunk(
+    '/Sign-in',
+    async (dataRegister, { rejectWithValue }) => {
+        try {
+            const { data } = await Axios.post('/signup', dataRegister)
+
+            return data
+        } catch (error) {
+            console.log(error.message)
+            // return custom error message from API if any
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message)
+            }
+        }
+    }
+)
+/**
+ * Call async Api for Edit lastname and firstname with Put
  * @function
  * @returns {Promise.<Void>}
  */

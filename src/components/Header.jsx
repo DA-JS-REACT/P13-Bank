@@ -36,7 +36,7 @@ export const Header = () => {
                         Sign Out
                     </Link>
                 ) : (
-                    <Link to="/sign-in" className="main-nav-item ">
+                    <Link to="/login" className="main-nav-item ">
                         <Icon />
                         Sign In
                     </Link>

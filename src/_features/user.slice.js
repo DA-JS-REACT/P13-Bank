@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUser, editUserName } from '@/_services/user.actions'
+import { getUser, editUserName, userRegister } from '@/_services/user.actions'
 
 const initialState = {
     loading: false,
@@ -41,6 +41,25 @@ export const userSlice = createSlice({
                 }
             })
             .addCase(editUserName.rejected, (state, payload) => {
+                state.loading = false
+                state.error = payload
+            })
+            .addCase(userRegister.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(userRegister.fulfilled, (state, action) => {
+                state.loading = false
+                state.error = null
+                state.userInfo = {
+                    ...state.userInfo,
+                    firstName: action.payload.body.firstName,
+                    lastName: action.payload.body.lastName,
+                    email: action.payload.body.email,
+                    password: action.payload.body.password,
+                }
+            })
+            .addCase(userRegister.rejected, (state, payload) => {
                 state.loading = false
                 state.error = payload
             })
