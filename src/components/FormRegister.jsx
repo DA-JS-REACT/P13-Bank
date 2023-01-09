@@ -1,36 +1,73 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from '@/_services/user.actions'
 import { useNavigate } from 'react-router-dom'
 import { selectUser } from '@/_helpers/selectors'
 import { Error } from '@/components/Error'
-import { validateRegister } from '../_services/validation'
+import {
+    checkEmail,
+    checkFieldText,
+    checkPassword,
+} from '@/_services/validation'
 
 export const FormRegister = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(selectUser)
+    // retrieves the name of the html tag
+    const [field, setField] = useState()
+    // for data recovering in the input field
     const [data, setData] = useState({
         email: '',
         password: '',
         firstName: '',
         lastName: '',
     })
+    // bool for submit or not the value
+    const [isValid, setIsValid] = useState(true)
 
     const handleChange = (e) => {
         setData({
             ...data,
             [e.target.name]: e.target.value,
         })
+        setField(e.target.name)
     }
-    console.log(data)
-    const { isValid, error } = validateRegister({ data })
-    console.log({ isvalid: isValid, error: error })
+
+    if (field) {
+        const input = document.querySelector(`input[name="${field}"]`)
+
+        let inputValue = ''
+
+        if (field === 'firstName') {
+            inputValue = data.firstName
+            checkFieldText(inputValue, input)
+        } else if (field === 'lastName') {
+            inputValue = data.lastName
+            checkFieldText(inputValue, input)
+        } else if (field === 'password') {
+            inputValue = data.password
+            checkPassword(inputValue, input)
+        } else if (field === 'email') {
+            inputValue = data.email
+            checkEmail(inputValue, input)
+        }
+    }
+    useEffect(() => {
+        const formData = document.querySelectorAll('.input-wrapper')
+        // parcours tout les FormData pour  trouver si il y a une erreur
+        for (let attrError of formData) {
+            if (attrError.getAttribute('data-error')) {
+                setIsValid(!isValid)
+            }
+        }
+        console.log(isValid)
+    }, [data])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        if (user.error === null) {
+        console.log(data)
+        if (user.error != null && isValid) {
             dispatch(userRegister(data))
             navigate('/login', { replace: true })
         }
@@ -47,15 +84,8 @@ export const FormRegister = () => {
                     onChange={handleChange}
                     required
                 />
-                {/* {validationError.password && (
-                    <span className="error">{validationError.password}</span>
-                )} */}
             </div>
-            <div
-                className="input-wrapper"
-                // data-error="oups"
-                // data-error-visible="true"
-            >
+            <div className="input-wrapper">
                 <label htmlFor="lastName">Lastname</label>
                 <input
                     type="text"
@@ -64,9 +94,6 @@ export const FormRegister = () => {
                     onChange={handleChange}
                     required
                 />
-                {/* {validationError.password && (
-                    <span className="error">{validationError.password}</span>
-                )} */}
             </div>
             <div className="input-wrapper">
                 <label htmlFor="email">E-mail</label>
@@ -77,9 +104,6 @@ export const FormRegister = () => {
                     onChange={handleChange}
                     required
                 />
-                {/* {validationError.email && (
-                    <span className="error">{validationError.email}</span>
-                )} */}
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
@@ -90,9 +114,6 @@ export const FormRegister = () => {
                     onChange={handleChange}
                     required
                 />
-                {/* {validationError.password && (
-                    <span className="error">{validationError.password}</span>
-                )} */}
             </div>
 
             {/* <!-- SHOULD BE THE BUTTON BELOW --> */}

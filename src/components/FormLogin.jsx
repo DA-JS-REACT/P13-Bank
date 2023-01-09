@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogged } from '@/_helpers/selectors'
 import { userLogin } from '@/_services/login.actions'
-import { CheckCredentials } from '@/_services/validation'
+import { checkEmail, checkPassword } from '@/_services/validation'
 import { Error } from '@/components/Error'
 import { Checkbox } from '@/components//Checkbox'
 import { getCookie, createCookie } from '@/_helpers/cookie'
@@ -17,19 +17,15 @@ export const FormLogin = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector(selectLogged)
 
-    // const testEmail = 'tony@stark.com'
-    // const testpassword = 'password123'
-
     // for credentials recovering in the input field
     const [credentials, setCredentials] = useState({
         email: '',
         password: '',
     })
-    // for error message if no validate
-    const [validationError, setValidationError] = useState({
-        errorEmail: '',
-        errorPassword: '',
-    })
+    // bool for submit or not the value
+    const [isValid, setIsValid] = useState(true)
+    // retrieves the name of the html tag
+    const [field, setField] = useState()
     // for checkBox
     const [isChecked, setIsChecked] = useState(false)
 
@@ -49,18 +45,24 @@ export const FormLogin = () => {
         if (e.target.name === 'checkbox') {
             setIsChecked(!isChecked)
         }
-        // recover the error message
-        const { error } = CheckCredentials(credentials)
-        setValidationError(error)
+        setField(e.target.name)
     }
-    // // create a cookie
-    // if (isChecked) {
-    //     document.cookie = ` email=${credentials.email};path=http://localhost:3000;secure`
-    // }
+
+    if (field) {
+        const input = document.querySelector(`input[name="${field}"]`)
+        let inputValue = ''
+
+        if (field === 'password') {
+            inputValue = credentials.password
+            checkPassword(inputValue, input)
+        } else if (field === 'email') {
+            inputValue = credentials.email
+            checkEmail(inputValue, input)
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const { isValid } = CheckCredentials(credentials)
 
         console.log({ isvalid: isValid })
         if (isValid) {
@@ -73,6 +75,15 @@ export const FormLogin = () => {
             }
         }
     }
+    useEffect(() => {
+        const formData = document.querySelectorAll('.input-wrapper')
+        // parcours tout les FormData pour  trouver si il y a une erreur
+        for (let attrError of formData) {
+            if (attrError.getAttribute('data-error')) {
+                setIsValid(!isValid)
+            }
+        }
+    }, [credentials])
 
     // injects value of cookie in input element
     useEffect(() => {
@@ -90,7 +101,6 @@ export const FormLogin = () => {
             })
         }
     }, [])
-    console.log(isChecked)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -103,9 +113,6 @@ export const FormLogin = () => {
                     onChange={handleChange}
                     required
                 />
-                {validationError.email && (
-                    <span className="error">{validationError.email}</span>
-                )}
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
@@ -116,9 +123,6 @@ export const FormLogin = () => {
                     onChange={handleChange}
                     required
                 />
-                {validationError.password && (
-                    <span className="error">{validationError.password}</span>
-                )}
             </div>
 
             <Checkbox checked={isChecked} onChange={handleChange} />

@@ -1,0 +1,29 @@
+.error {
+    color: red;
+    font-size: 0.7rem;
+}
+
+.input-wrapper[data-error]::after {
+    content: attr(data-error);
+    font-size: 0.7em;
+    color: #e54858;
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    text-align: left;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+.input-wrapper[data-error-visible='true']::after {
+    opacity: 1;
+}
+.input-wrapper[data-error-visible='true'] input {
+    border: 2px solid #e54858;
+}
+
+// input[data-error]::after {
+//     content: attr(data-error);
+//     font-size: 0.3em;
+//     color: red;
+// }
