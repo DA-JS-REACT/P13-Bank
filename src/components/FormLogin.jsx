@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLogged } from '@/_helpers/selectors'
 import { userLogin } from '@/_services/login.actions'
-import { checkEmail, checkPassword } from '@/_services/validation'
 import { Error } from '@/components/Error'
 import { Checkbox } from '@/components//Checkbox'
 import { getCookie, createCookie } from '@/_helpers/cookie'
+import { CheckCredentials } from '@/_services/validation'
+import { isEmpty } from '@/_helpers/Empty'
 
 /**
  * form to user Login
@@ -22,10 +23,12 @@ export const FormLogin = () => {
         email: '',
         password: '',
     })
-    // bool for submit or not the value
-    const [isValid, setIsValid] = useState(true)
-    // retrieves the name of the html tag
-    const [field, setField] = useState()
+    const [messageError, setMessageError] = useState({})
+    // // bool for submit or not the value
+    // const [isValid, setIsValid] = useState(true)
+    // // retrieves the name of the html tag
+    // const [fieldParent, setFieldParent] = useState()
+    // const [field, setField] = useState()
     // for checkBox
     const [isChecked, setIsChecked] = useState(false)
 
@@ -45,54 +48,43 @@ export const FormLogin = () => {
         if (e.target.name === 'checkbox') {
             setIsChecked(!isChecked)
         }
-        setField(e.target.name)
+
+        // check credentials for validation
+        const noValidField = CheckCredentials(credentials)
+        // if no valid , inject message error
+        setMessageError({
+            email: noValidField.error.email,
+            password: noValidField.error.password,
+        })
     }
 
-    if (field) {
-        const input = document.querySelector(`input[name="${field}"]`)
-        let inputValue = ''
+    // reset messageError if the error messages have disappeared
+    if (messageError.email === '' && messageError.password === '') {
+        console.log('yes')
+        setMessageError({})
+    }
 
-        if (field === 'password') {
-            inputValue = credentials.password
-            checkPassword(inputValue, input)
-        } else if (field === 'email') {
-            inputValue = credentials.email
-            checkEmail(inputValue, input)
-        }
+    if (isEmpty(messageError)) {
+        console.log('empty', messageError)
+    } else {
+        console.log('Notempty', messageError)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log({ isvalid: isValid })
-        if (isValid) {
+        if (isEmpty(messageError)) {
             dispatch(userLogin(credentials))
             // create a cookie && isLogged.error != null
             if (isChecked && isLogged.error === null) {
                 createCookie(credentials.email, credentials.password)
-                //     document.cookie = ` email=${credentials.email};path=http://localhost:3000;secure`
-                //     document.cookie = ` password=${credentials.password};path=http://localhost:3000;secure`
             }
         }
     }
-    useEffect(() => {
-        const formData = document.querySelectorAll('.input-wrapper')
-        // parcours tout les FormData pour  trouver si il y a une erreur
-        for (let attrError of formData) {
-            if (attrError.getAttribute('data-error')) {
-                setIsValid(!isValid)
-            }
-        }
-    }, [credentials])
 
     // injects value of cookie in input element
     useEffect(() => {
-        const inputEmail = document.querySelector('input[name="email"]')
-        const inputPassword = document.querySelector('input[name="password"]')
-
         if (getCookie('email') != null) {
-            inputEmail.value = getCookie('email')
-            inputPassword.value = getCookie('password')
             // update state credentials
             setCredentials({
                 ...credentials,
@@ -104,7 +96,15 @@ export const FormLogin = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.email) ? messageError.email : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.email) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="email">E-mail</label>
                 <input
                     type="email"
@@ -114,7 +114,15 @@ export const FormLogin = () => {
                     required
                 />
             </div>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.password) ? messageError.password : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.password) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -126,11 +134,6 @@ export const FormLogin = () => {
             </div>
 
             <Checkbox checked={isChecked} onChange={handleChange} />
-            {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-
-            {/* <Link className="sign-in-button" to="/user">
-                Sign In
-            </Link> */}
 
             {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
             <button className="sign-in-button">Connect</button>

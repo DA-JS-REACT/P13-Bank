@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from '@/_services/user.actions'
 import { useNavigate } from 'react-router-dom'
 import { selectUser } from '@/_helpers/selectors'
 import { Error } from '@/components/Error'
-import {
-    checkEmail,
-    checkFieldText,
-    checkPassword,
-} from '@/_services/validation'
+
+import { validateRegister } from '../_services/validation'
+import { isEmpty } from '@/_helpers/Empty'
 
 export const FormRegister = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(selectUser)
-    // retrieves the name of the html tag
-    const [field, setField] = useState()
+
     // for data recovering in the input field
     const [data, setData] = useState({
         email: '',
@@ -23,59 +20,60 @@ export const FormRegister = () => {
         firstName: '',
         lastName: '',
     })
-    // bool for submit or not the value
-    const [isValid, setIsValid] = useState(true)
+    const [messageError, setMessageError] = useState({})
 
     const handleChange = (e) => {
         setData({
             ...data,
             [e.target.name]: e.target.value,
         })
-        setField(e.target.name)
+
+        // check credentials for validation
+        const noValidField = validateRegister(data)
+        // if no valid , inject message error
+        setMessageError({
+            email: noValidField.error.email,
+            password: noValidField.error.password,
+            firstName: noValidField.error.firstName,
+            lastName: noValidField.error.lastName,
+        })
     }
 
-    if (field) {
-        const input = document.querySelector(`input[name="${field}"]`)
-
-        let inputValue = ''
-
-        if (field === 'firstName') {
-            inputValue = data.firstName
-            checkFieldText(inputValue, input)
-        } else if (field === 'lastName') {
-            inputValue = data.lastName
-            checkFieldText(inputValue, input)
-        } else if (field === 'password') {
-            inputValue = data.password
-            checkPassword(inputValue, input)
-        } else if (field === 'email') {
-            inputValue = data.email
-            checkEmail(inputValue, input)
-        }
+    // reset messageError if the error messages have disappeared
+    if (
+        messageError.email === '' &&
+        messageError.password === '' &&
+        messageError.firstName === '' &&
+        messageError.lastName === ''
+    ) {
+        setMessageError({})
     }
-    useEffect(() => {
-        const formData = document.querySelectorAll('.input-wrapper')
-        // parcours tout les FormData pour  trouver si il y a une erreur
-        for (let attrError of formData) {
-            if (attrError.getAttribute('data-error')) {
-                setIsValid(!isValid)
-            }
-        }
-        console.log(isValid)
-    }, [data])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(data)
-        if (user.error != null && isValid) {
+
+        if (isEmpty(messageError)) {
+            console.log(data)
             dispatch(userRegister(data))
+        }
+        if (user.error != null) {
             navigate('/login', { replace: true })
         }
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.firstName)
+                        ? messageError.firstName
+                        : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.firstName) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="firstName">Firstname</label>
                 <input
                     type="text"
@@ -85,7 +83,15 @@ export const FormRegister = () => {
                     required
                 />
             </div>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.lastName) ? messageError.lastName : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.lastName) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="lastName">Lastname</label>
                 <input
                     type="text"
@@ -95,7 +101,15 @@ export const FormRegister = () => {
                     required
                 />
             </div>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.email) ? messageError.email : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.email) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="email">E-mail</label>
                 <input
                     type="email"
@@ -105,7 +119,15 @@ export const FormRegister = () => {
                     required
                 />
             </div>
-            <div className="input-wrapper">
+            <div
+                className="input-wrapper"
+                data-error={`${
+                    !isEmpty(messageError.password) ? messageError.password : ''
+                }`}
+                data-error-visible={`${
+                    isEmpty(messageError.password) ? 'false' : 'true'
+                }`}
+            >
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"

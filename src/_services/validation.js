@@ -9,92 +9,160 @@ const ErrorMessage = {
     fieldEmpty: 'ne peut pas être vide',
 }
 /**
- *  check password and  email
+ *  Manage message Error if password and  email are not valid
  * @function
  * @param {object.<{email: string, password: string}>}credentials
  * @returns {object}
  */
 export const CheckCredentials = (credentials) => {
-    let isValid = false
     let error = { email: '', password: '' }
 
     const isValidEmail = checkEmail(credentials.email)
     const isValidPassword = checkPassword(credentials.password)
 
     // console.log({ email: isValidEmail, password: isValidPassword })
-    if (isValidEmail && isValidPassword) {
-        isValid = true
-    }
-    if (isValidEmail && isValidPassword) {
-        isValid = true
-    } else if (!isValidEmail && isValidPassword) {
+    if (!isValidEmail) {
         error.email = ErrorMessage.email
-    } else if (isValidEmail && !isValidPassword) {
+        return { error }
+    }
+    if (!isValidPassword) {
         error.password = ErrorMessage.password
-    } else if (!isValidEmail && !isValidPassword) {
-        error = ErrorMessage
+        return { error }
     }
 
-    return { isValid, error }
+    return { error }
 }
+
 /**
  * Manage message error
  * @function
- * @param {boolean} isValid
- * @param {HtmlElement} inputElement - field
- * @param {string} texterror - message  when field isn't valid
+ * @param {object.<{firstName:string, lastName:string,email: string, password: string}} data
+ * @returns {object}
  */
-const validateRegister = (isValid, inputElement, texterror) => {
-    const divElement = inputElement.closest('.input-wrapper')
+export const validateRegister = (data) => {
+    let error = { email: '', password: '', firstName: '', lastName: '' }
 
-    if (!isValid) {
-        divElement.setAttribute('data-error', texterror)
-        divElement.setAttribute('data-error-visible', true)
-    } else {
-        divElement.removeAttribute('data-error')
-        divElement.removeAttribute('data-error-visible')
+    const isValidEmail = checkEmail(data.email)
+    const isValidPassword = checkPassword(data.password)
+    const isValidFirsName = checkFieldText(data.firstName)
+    const isValidLastName = checkFieldText(data.lastName)
+
+    // console.log({ email: isValidEmail, password: isValidPassword })
+    if (!isValidFirsName) {
+        error.firstName = ErrorMessage.fieldLenght
+        return { error }
+    } else if (!isValidLastName) {
+        error.lastName = ErrorMessage.fieldLenght
+        return { error }
+    } else if (!isValidEmail) {
+        error.email = ErrorMessage.email
+        return { error }
+    } else if (!isValidPassword) {
+        error.password = ErrorMessage.password
+        return { error }
     }
+
+    return { error }
 }
 
 /**
- * check with regex email
+ * check email with regex
  * @function
  * @param {string} email - value received from the field
- * @param {HtmlElement} inputElement - field
+ * @returns {boolean} - true if email matches
  */
-export const checkEmail = (email, inputElement) => {
+const checkEmail = (email) => {
     const emailReg = /^[a-z0-9._%+-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/gim
     const isValidEmail = emailReg.test(email.trim().toLowerCase())
 
-    const texterror = ErrorMessage.email
-
-    validateRegister(isValidEmail, inputElement, texterror)
+    return isValidEmail
 }
+
 /**
  * Check password
  * @function
  * @param {string} password - value received from the field
- * @param {HtmlElement} inputElement - field
+ * @returns {boolean} - true if password is valid
  */
-export const checkPassword = (password, inputElement) => {
-    const isValidPassword =
-        password.trim().length >= 2 && password.trim().length != ''
-    const texterror = ErrorMessage.password
+const checkPassword = (password) => {
+    const isValidPassword = password.trim().length >= 2
 
-    validateRegister(isValidPassword, inputElement, texterror)
+    return isValidPassword
 }
 
 /**
  * check firstName and lastName
  * @function
  * @param {string} fieldValue - value received from the field
- * @param {HtmlElement} inputElement - field
+ * @param {boolean} - true if firstName or lastName are valid
  */
-export const checkFieldText = (fieldValue, inputElement) => {
+const checkFieldText = (fieldValue) => {
     const isValidField =
         fieldValue.trim().length >= 2 && fieldValue.trim().length != ''
 
-    const texterror = ErrorMessage.fieldLenght
-
-    validateRegister(isValidField, inputElement, texterror)
+    return isValidField
 }
+// /**
+//  * Manage message error
+//  * @function
+//  * @param {boolean} isValid
+//  * @param {HtmlElement} inputElement - field
+//  * @param {string} texterror - message  when field isn't valid
+//  */
+// const validateRegister = (isValid, inputElement, texterror) => {
+//     const divElement = inputElement.closest('.input-wrapper')
+
+//     if (!isValid) {
+//         divElement.setAttribute('data-error', texterror)
+//         divElement.setAttribute('data-error-visible', true)
+//     } else {
+//         divElement.removeAttribute('data-error')
+//         divElement.removeAttribute('data-error-visible')
+//     }
+// }
+
+// /**
+//  * check email with regex
+//  * @function
+//  * @param {string} email - value received from the field
+//  * @param {HtmlElement} inputElement - field
+//  */
+// export const checkEmail = (email, inputElement) => {
+//     const emailReg = /^[a-z0-9._%+-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/gim
+//     const isValidEmail = emailReg.test(email.trim().toLowerCase())
+
+//     const texterror = ErrorMessage.email
+//     console.log('email', isValidEmail)
+
+//     validateRegister(isValidEmail, inputElement, texterror)
+// }
+// /**
+//  * Check password
+//  * @function
+//  * @param {string} password - value received from the field
+//  * @param {HtmlElement} inputElement - field
+//  */
+// export const checkPassword = (password, inputElement) => {
+//     const isValidPassword =
+//         password.trim().length >= 2 && password.trim().length != ''
+//     const texterror = ErrorMessage.password
+
+//     console.log('password', isValidPassword)
+
+//     validateRegister(isValidPassword, inputElement, texterror)
+// }
+
+// /**
+//  * check firstName and lastName
+//  * @function
+//  * @param {string} fieldValue - value received from the field
+//  * @param {HtmlElement} inputElement - field
+//  */
+// export const checkFieldText = (fieldValue, inputElement) => {
+//     const isValidField =
+//         fieldValue.trim().length >= 2 && fieldValue.trim().length != ''
+
+//     const texterror = ErrorMessage.fieldLenght
+
+//     validateRegister(isValidField, inputElement, texterror)
+// }

@@ -1,3 +1,5 @@
+import { pathLocal } from '@/_services/env.config'
+
 /**
  *  get cookie on the list by name
  * @function
@@ -20,6 +22,6 @@ export function getCookie(cookieName) {
 export function createCookie(email, password) {
     let date = new Date(Date.now() + 3600000) // 3600000ms = 1 heure
     date = date.toUTCString()
-    document.cookie = ` email=${email};path=http://localhost:3000;secure;expires=${date}`
-    document.cookie = ` password=${password};path=http://localhost:3000;secure;expires=${date}`
+    document.cookie = ` email=${email};path=${pathLocal};secure;expires=${date}`
+    document.cookie = ` password=${password};path=${pathLocal};secure;expires=${date}`
 }

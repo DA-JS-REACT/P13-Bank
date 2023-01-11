@@ -10,3 +10,10 @@ export const selectLogged = (state) => state.auth
  * @returns  {object}
  */
 export const selectUser = (state) => state.user
+
+/**
+ *
+ * @param {function} state  for userInfo
+ * @returns  {object}
+ */
+export const selectUserInfo = (state) => state.user.userInfo.body

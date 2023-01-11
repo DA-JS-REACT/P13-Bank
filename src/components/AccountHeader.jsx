@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormEditName } from '@/components/FormEditName'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUserInfo } from '@/_helpers/selectors'
 import { editUserName, getUser } from '@/_services/user.actions'
 /**
  *  Banner for profile page
@@ -11,6 +12,8 @@ import { editUserName, getUser } from '@/_services/user.actions'
  * @returns {React.ReactElement}
  */
 export const AccountHeader = ({ firstName, lastName }) => {
+    const user = useSelector(selectUserInfo)
+    console.log('user', user.firstName)
     const [isToggleEdit, setIsToggleEdit] = useState(false)
     const [edit, setEdit] = useState({
         firstName: firstName,
@@ -30,6 +33,15 @@ export const AccountHeader = ({ firstName, lastName }) => {
         setIsToggleEdit(false)
         dispatch(getUser())
     }
+    useEffect(() => {
+        console.log('first', edit)
+        setEdit({
+            ...edit,
+            firstName: user.firstName,
+            lastName: user.lastName,
+        })
+        console.log('last', edit)
+    }, [])
 
     return (
         <div className="AccountHeader">

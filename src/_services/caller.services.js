@@ -1,10 +1,11 @@
 import axios from 'axios'
 
 import { accountService } from './account.services'
+import { pathApi } from './env.config'
 
 // Paramétrage de base d'axios
 export const Axios = axios.create({
-    baseURL: 'http://localhost:3001/api/v1/user/',
+    baseURL: `${pathApi}/api/v1/user/`,
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
