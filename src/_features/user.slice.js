@@ -67,4 +67,4 @@ export const userSlice = createSlice({
 })
 
 export default userSlice.reducer
-export const { editUser } = userSlice.actions
+export const { setEditProfile } = userSlice.actions

@@ -4,6 +4,7 @@ import { FormEditName } from '@/components/FormEditName'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserInfo } from '@/_helpers/selectors'
 import { editUserName, getUser } from '@/_services/user.actions'
+
 /**
  *  Banner for profile page
  * @component
@@ -13,11 +14,11 @@ import { editUserName, getUser } from '@/_services/user.actions'
  */
 export const AccountHeader = ({ firstName, lastName }) => {
     const user = useSelector(selectUserInfo)
-    console.log('user', user.firstName)
+
     const [isToggleEdit, setIsToggleEdit] = useState(false)
     const [edit, setEdit] = useState({
-        firstName: firstName,
-        lastName: lastName,
+        firstName: user.firstName,
+        lastName: user.lastName,
     })
     const dispatch = useDispatch()
 
@@ -27,21 +28,22 @@ export const AccountHeader = ({ firstName, lastName }) => {
             [e.target.name]: e.target.value,
         })
     }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(editUserName(edit))
         setIsToggleEdit(false)
         dispatch(getUser())
     }
+
+    // updates with new values after the change
     useEffect(() => {
-        console.log('first', edit)
         setEdit({
             ...edit,
             firstName: user.firstName,
             lastName: user.lastName,
         })
-        console.log('last', edit)
-    }, [])
+    }, [user])
 
     return (
         <div className="AccountHeader">
@@ -64,6 +66,7 @@ export const AccountHeader = ({ firstName, lastName }) => {
                 </button>
             ) : (
                 <FormEditName
+                    user={user}
                     edit={edit}
                     setIsToggleEdit={setIsToggleEdit}
                     handleChange={handleChange}

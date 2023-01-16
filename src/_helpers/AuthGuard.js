@@ -14,9 +14,6 @@ import { selectLogged } from './selectors'
  */
 export const AuthGuard = ({ children }) => {
     const islogged = useSelector(selectLogged)
-    // if (!accountService.isLogged()) {
-    //     return <Navigate to="/sign-in" />
-    // }
 
     if (!islogged.logged) {
         return <Navigate to="/sign-in" />

@@ -1,7 +1,7 @@
-// import  chat  from '../assets/img/icon-chat.png'
-// import  money  from '@/assets/img/icon-money.png'
-// import  security  from '@/assets/img/icon-security.png'
-
+/**
+ * array which contain data for card for Home Page
+ *@constant
+ */
 export const featuresData = [
     {
         img: 'assets/img/icon-chat.png',
@@ -20,6 +20,10 @@ export const featuresData = [
     },
 ]
 
+/**
+ * array which contain data for card for the summary of the current month's transactions
+ *@constant
+ */
 export const accountData = [
     {
         title: 'Argent Bank Checking (x8349)',

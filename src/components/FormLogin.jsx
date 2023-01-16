@@ -24,11 +24,6 @@ export const FormLogin = () => {
         password: '',
     })
     const [messageError, setMessageError] = useState({})
-    // // bool for submit or not the value
-    // const [isValid, setIsValid] = useState(true)
-    // // retrieves the name of the html tag
-    // const [fieldParent, setFieldParent] = useState()
-    // const [field, setField] = useState()
     // for checkBox
     const [isChecked, setIsChecked] = useState(false)
 
@@ -60,15 +55,14 @@ export const FormLogin = () => {
 
     // reset messageError if the error messages have disappeared
     if (messageError.email === '' && messageError.password === '') {
-        console.log('yes')
         setMessageError({})
     }
 
-    if (isEmpty(messageError)) {
-        console.log('empty', messageError)
-    } else {
-        console.log('Notempty', messageError)
-    }
+    // if (isEmpty(messageError)) {
+    //     console.log('empty', messageError)
+    // } else {
+    //     console.log('Notempty', messageError)
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault()

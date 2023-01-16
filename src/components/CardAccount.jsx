@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 /**
- * Card for user account
+ * Card for user account by category
  * @component
  * @prop {String} title  title for the card
  * @prop {String} amount  user's amount

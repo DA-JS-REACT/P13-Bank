@@ -6,7 +6,10 @@ import { getUser } from '@/_services/user.actions'
 import { selectUser } from '@/_helpers/selectors'
 import { Loader } from '@/components/Loader'
 import { Error } from '@/components/Error'
-
+/**
+ * Page  profil , contain summary of the current month's transactions
+ * @returns {React.ReactElement}
+ */
 export const User = () => {
     const dispatch = useDispatch()
 

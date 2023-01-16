@@ -38,7 +38,7 @@ export const Header = () => {
                 ) : (
                     <Link to="/login" className="main-nav-item ">
                         <Icon />
-                        Sign In
+                        Sign Up
                     </Link>
                 )}
             </div>

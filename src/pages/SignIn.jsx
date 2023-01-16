@@ -1,7 +1,11 @@
 import React from 'react'
 import { Icon } from '@/components/Icon'
 import { FormRegister } from '@/components/FormRegister'
-
+/**
+ * Page register Form - sign in
+ * @Component
+ * @returns {React.ReactElement}
+ */
 export const SignIn = () => {
     return (
         <main className="main bg-dark">

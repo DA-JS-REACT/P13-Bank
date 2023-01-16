@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
  * @returns {React.ReactElement}
  */
 export function FormEditName({
+    user,
     edit,
     setIsToggleEdit,
     handleSubmit,
@@ -23,6 +24,7 @@ export function FormEditName({
                     name="firstName"
                     value={edit.firstName}
                     onChange={handleChange}
+                    placeholder="bob"
                 />
                 <input
                     className="input-group__field"
@@ -30,6 +32,7 @@ export function FormEditName({
                     name="lastName"
                     value={edit.lastName}
                     onChange={handleChange}
+                    placeholder={user.lastName}
                 />
             </div>
             <div className="button-group">
@@ -57,4 +60,7 @@ FormEditName.propTypes = {
         firstName: PropTypes.string,
         lastName: PropTypes.string,
     }).isRequired,
+    user: PropTypes.shape({
+        lastName: PropTypes.string,
+    }),
 }
