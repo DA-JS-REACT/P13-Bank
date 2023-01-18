@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
     - http
 paths:
-    /user/{userId}/transactions:
+    /transactions/{userId}/transactions:
         get:
             security:
                 - Bearer: []
@@ -23,14 +23,11 @@ paths:
                   required: true
                   type: string
                   maxLength: 32
-                  pattern: ^example-[0-9a-z]+$
                 - in: header
                   name: Authorization
                   description: Attach Bearer JWT token
                   required: true
                   type: string
-                  pattern: ^example-[0-9a-z]+$
-                  maxLength: 32
             produces:
                 - application/json
             responses:
@@ -44,7 +41,7 @@ paths:
                     description: access denied
                 "500":
                     description: Internal Server Error
-    /user/{userId}/transactions/{transactionsId}/detail/month={currentMonth}:
+    /transactions/{userId}/{transactionsId}/detail?month={currentMonth}:
         get:
             security:
                 - Bearer: []
@@ -63,7 +60,7 @@ paths:
                   required: true
                   type: string
                   description: Numeric ID of the detail's transaction to get
-                - in: path
+                - in: query
                   name: currentMonth
                   type: integer
                   required: true
@@ -86,8 +83,8 @@ paths:
                     description: access denied
                 "500":
                     description: Internal Server Error
-    /user/{userId}/transactions/detail/{detailId}/update:
-        put:
+    /transactions/{userId}/detail/{transactionsId}/update:
+        patch:
             security:
                 - Bearer: []
             tags:
@@ -101,7 +98,7 @@ paths:
                   type: string
                   description: Numeric ID of the user to get
                 - in: path
-                  name: detailId
+                  name: transactionsId
                   required: true
                   type: string
                   description: Numeric ID of the detail's transaction to get

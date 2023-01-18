@@ -93,10 +93,14 @@ export const FormLogin = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.email) ? messageError.email : ''
+                    !isEmpty(messageError.email) && credentials.email.length > 0
+                        ? messageError.email
+                        : ''
                 }`}
                 data-error-visible={`${
-                    isEmpty(messageError.email) ? 'false' : 'true'
+                    !isEmpty(messageError.email) && credentials.email.length > 0
+                        ? 'true'
+                        : 'false'
                 }`}
             >
                 <label htmlFor="email">E-mail</label>
@@ -111,10 +115,16 @@ export const FormLogin = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.password) ? messageError.password : ''
+                    !isEmpty(messageError.password) &&
+                    credentials.password.length > 0
+                        ? messageError.password
+                        : ''
                 }`}
                 data-error-visible={`${
-                    isEmpty(messageError.password) ? 'false' : 'true'
+                    !isEmpty(messageError.password) &&
+                    credentials.password.length > 0
+                        ? 'true'
+                        : 'false'
                 }`}
             >
                 <label htmlFor="password">Password</label>

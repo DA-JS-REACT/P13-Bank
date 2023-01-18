@@ -66,7 +66,8 @@ export const FormRegister = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.firstName)
+                    !isEmpty(messageError.firstName) &&
+                    data.firstName.length > 0
                         ? messageError.firstName
                         : ''
                 }`}
@@ -86,10 +87,14 @@ export const FormRegister = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.lastName) ? messageError.lastName : ''
+                    !isEmpty(messageError.lastName) && data.lastName.length > 0
+                        ? messageError.lastName
+                        : ''
                 }`}
                 data-error-visible={`${
-                    isEmpty(messageError.lastName) ? 'false' : 'true'
+                    !isEmpty(messageError.lastName) && data.lastName.length > 0
+                        ? 'true'
+                        : 'false'
                 }`}
             >
                 <label htmlFor="lastName">Lastname</label>
@@ -104,10 +109,14 @@ export const FormRegister = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.email) ? messageError.email : ''
+                    !isEmpty(messageError.email) && data.email.length > 0
+                        ? messageError.email
+                        : ''
                 }`}
                 data-error-visible={`${
-                    isEmpty(messageError.email) ? 'false' : 'true'
+                    !isEmpty(messageError.email) && data.email.length > 0
+                        ? 'true'
+                        : 'false'
                 }`}
             >
                 <label htmlFor="email">E-mail</label>
@@ -122,10 +131,14 @@ export const FormRegister = () => {
             <div
                 className="input-wrapper"
                 data-error={`${
-                    !isEmpty(messageError.password) ? messageError.password : ''
+                    !isEmpty(messageError.password) && data.password.length > 0
+                        ? messageError.password
+                        : ''
                 }`}
                 data-error-visible={`${
-                    isEmpty(messageError.password) ? 'false' : 'true'
+                    !isEmpty(messageError.password) && data.password.length > 0
+                        ? 'true'
+                        : 'false'
                 }`}
             >
                 <label htmlFor="password">Password</label>
