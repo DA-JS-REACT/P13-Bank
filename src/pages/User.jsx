@@ -13,14 +13,6 @@ import { Error } from '@/components/Error'
 export const User = () => {
     const dispatch = useDispatch()
 
-    // const flag = useRef(false)
-
-    // useEffect(() => {
-    //     if (flag.current === false) {
-    //         dispatch(getUser())
-    //     }
-    //     return () => flag.current === true
-    // }, [])
     const user = useSelector(selectUser)
     useEffect(() => {
         let timeoutId = setTimeout(() => {
